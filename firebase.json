@@ -1,0 +1,11 @@
+{
+  "hosting": [
+    {
+      "target": "saladejuegos",
+      "source": ".",
+      "frameworksBackend": {
+        "region": "us-central1"
+      }
+    }
+  ]
+}

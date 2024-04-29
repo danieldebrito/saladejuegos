@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "saladejuegos-ab1c6": {
+      "hosting": {
+        "saladejuegos": [
+          "saladejuegos-ab1c6"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "saladejuegos-ab1c6"
+  }
+}
