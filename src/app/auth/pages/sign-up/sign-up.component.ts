@@ -11,7 +11,7 @@ import { Paciente } from '../../../class/usuarios/paciente';
   styleUrl: './sign-up.component.scss',
 })
 export class SignUpComponent {
-  public error = false;
+  //public error = false;
   public mostrarPass = false;
 
   public role: ERole = ERole.paciente;
@@ -68,10 +68,10 @@ export class SignUpComponent {
         nombre: this.createForm.value.nombre ?? '',
         apellido: this.createForm.value.apellido ?? '',
         sexo: this.createForm.value.sexo ?? '',
-        dni: this.createForm.value.dni ?? '',
+        //dni: this.createForm.value.dni ?? '',
         edad: this.createForm.value.edad ?? '',
         fechaNacimiento: this.createForm.value.fechaNacimiento ?? '',
-        role: this.role,
+        //role: this.role,
       };
 
       this.authService.SignUp(newEspecialista);
