@@ -41,4 +41,8 @@ export class SignInComponent {
   verOcultarPass() {
     this.mostrarPass = !this.mostrarPass;
   }
+
+  AutoSignIn(){
+    this.authSvc.SignIn( { email: 'danielrdebrito@gmail.com', password: '123456'});
+  }
 }
