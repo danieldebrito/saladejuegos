@@ -1,40 +1,111 @@
-<div class="container py-4">
-    <header class="pb-3 mb-4 border-bottom">
-        <a href="/" class="d-flex align-items-center text-body-emphasis text-decoration-none">
-<img src="assets/utn.png" alt="" srcset="">
-            <span class="fs-4">Jumbotron example</span>
-        </a>
-    </header>
-
-    <div class="p-5 mb-4 bg-body-tertiary rounded-3">
-        <div class="container-fluid py-5">
-            <h1 class="display-5 fw-bold">Custom jumbotron</h1>
-            <p class="col-md-8 fs-4">Using a series of utilities, you can create this jumbotron, just like the one in
-                previous versions of Bootstrap. Check out the examples below for how you can remix and restyle it to
-                your liking.</p>
-            <button class="btn btn-primary btn-lg" type="button">Example button</button>
-        </div>
+<div class="container bg-cele py-4">
+  <div class="p-5 bg-cele mb-4 bg rounded-3">
+    <div class="container-fluid bg-cele py-5">
+      <img src="./../../../assets/logo/logo_trans.png" alt="" srcset="">
+      <p class="col-md-8 fw-bold amatic">
+        El mundo de los juegos en línea es un lugar lleno de infinitas posibilidades.
+        Aquí encontrarás juegos de diversos géneros, incluyendo el Ahorcado, Mayor o Menor, Preguntados y más...
+      </p>
     </div>
-
-    <div class="row align-items-md-stretch">
-        <div class="col-md-6">
-            <div class="h-100 p-5 text-bg-dark rounded-3">
-                <h2>Change the background</h2>
-                <p>Swap the background-color utility and add a `.text-*` color utility to mix up the jumbotron look.
-                    Then, mix and match with additional component themes and more.</p>
-                <button class="btn btn-outline-light" type="button">Example button</button>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="h-100 p-5 bg-body-tertiary border rounded-3">
-                <h2>Add borders</h2>
-                <p>Or, keep it light and add a border for some added definition to the boundaries of your content. Be
-                    sure to look under the hood at the source HTML here as we've adjusted the alignment and sizing of
-                    both column's content for equal-height.</p>
-                <button class="btn btn-outline-secondary" type="button">Example button</button>
-            </div>
-        </div>
-    </div>
-
-
+  </div>
 </div>
+
+<!-- Mensajes de marketing y destacados
+================================================== -->
+<!-- Envuelve el resto de la página en otro contenedor para centrar todo el contenido. -->
+
+<div class="container marketing">
+
+  <!-- Tres columnas de texto debajo del carrusel -->
+  <div class="row mt-4">
+    <div class="col-lg-3 text-center">
+      <a routerLink="/juegos/ahorcado">
+        <img class="imgRedonda" src="assets/images/home/heading/ahorcado.png" srcset="">
+      </a>
+      <h2 class="fw-normal heading mt-2">Ahorcado</h2>
+      <p class="text-body-secondary">Revive la emoción del clásico juego del Ahorcado que solías jugar en la escuela. ¡Todos lo hemos disfrutado alguna vez!</p>
+      <p><a class="btn btn-secondary" routerLink="/juegos/ahorcado">Acceder &raquo;</a></p>
+    </div><!-- /.col-lg-3 -->
+
+    <div class="col-lg-3 text-center">
+      <a routerLink="/juegos/mayormenor">
+        <img class="imgRedonda" src="assets/images/home/heading/mayor.png" srcset="">
+      </a>
+      <h2 class="fw-normal heading mt-2">Mayor o Menor</h2>
+      <p class="text-body-secondary">¿Te atreves a adivinar si la próxima carta en el mazo es mayor o menor que la que está en la mesa? En este emocionante juego de cartas, la suerte es tu aliada.</p>
+      <p><a class="btn btn-secondary" routerLink="/juegos/mayormenor">Acceder &raquo;</a></p>
+    </div><!-- /.col-lg-3 -->
+
+    <div class="col-lg-3 text-center">
+      <a routerLink="/juegos/preguntados">
+        <img class="imgRedonda" src="assets/images/home/heading/preguntados.png" srcset="">
+      </a>
+      <h2 class="fw-normal heading mt-2">Preguntados</h2>
+      <p class="text-body-secondary">Sumérgete en el emocionante mundo de Preguntados, el juego de trivia que arrasa en Internet. En este juego, te enfrentarás a imágenes de personajes de Los Simpsons y tendrás que adivinar su nombre entre tres opciones. ¡Hay más de 600 personajes por descubrir!</p>
+      <p><a class="btn btn-secondary" routerLink="/juegos/preguntadosdos">Acceder &raquo;</a></p>
+    </div><!-- /.col-lg-3 -->
+
+    <div class="col-lg-3 text-center">
+      <a routerLink="/juegos/ahorcado">
+        <img class="imgRedonda" src="assets/images/home/heading/slot.png" srcset="">
+      </a>
+      <h2 class="fw-normal heading mt-2">Tragamonedas</h2>
+      <p class="text-body-secondary">¿Sientes la emoción de probar tu suerte en el azar? En nuestro juego de tragamonedas, te encontrarás con 3 carretes llenos de símbolos. Gira los carretes y espera a que los símbolos se alineen de forma que obtengas tres idénticos para ganar fabulosos premios. ¿Te atreves a darle un giro?</p>
+      <p><a class="btn btn-secondary" routerLink="/juegos/tragamonedas">Acceder &raquo;</a></p>
+    </div><!-- /.col-lg-3 -->
+  </div><!-- /.row -->
+
+  <!-- COMIENZAN LAS CARACTERÍSTICAS -->
+
+  <hr class="featurette-divider">
+
+  <div class="row featurette">
+    <div class="col-md-7">
+      <h2 class="featurette-heading fw-normal lh-1">Juego de Ahorcado. <span class="text-body-secondary">Acierta
+          Palabras.</span></h2>
+      <p class="lead">Tienes que seleccionar una letra y ver si está en la palabra. Si aciertas, el juego te mostrará en qué posición está dicha letra y podrás seguir eligiendo letras. Tienes un total de 5 intentos para adivinar la palabra.</p>
+    </div>
+    <div class="col-md-5">
+      <img src="assets/images/home/featurette/ahorcado.jpg" width="500" height="500">
+    </div>
+  </div>
+
+  <hr class="featurette-divider">
+
+  <div class="row featurette">
+    <div class="col-md-7 order-md-2">
+      <h2 class="featurette-heading fw-normal lh-1">Juego de Mayor o Menor. <span class="text-body-secondary">Acierta la Próxima Baraja.</span></h2>
+      <p class="lead">Debes adivinar si la próxima carta en el mazo es mayor o menor que la que está en la mesa. En este emocionante juego de cartas, a veces es fácil y otras veces es todo un desafío.</p>
+    </div>
+    <div class="col-md-5 order-md-1">
+      <img src="assets/images/home/featurette/mayormenor.jpg" width="500" height="500">
+    </div>
+  </div>
+
+  <hr class="featurette-divider">
+
+  <div class="row featurette">
+    <div class="col-md-7">
+      <h2 class="featurette-heading fw-normal lh-1">Juego de Preguntados. <span class="text-body-secondary">Acierta cómo se llama el Simpson.</span></h2>
+      <p class="lead">Te enfrentarás a imágenes de personajes de Los Simpsons y tendrás que adivinar su nombre entre tres opciones. ¡Hay más de 600 personajes por descubrir!</p>
+    </div>
+    <div class="col-md-5">
+      <img src="assets/images/home/featurette/simpsons.jpg" width="500" height="500">
+    </div>
+  </div>
+
+  <hr class="featurette-divider">
+
+  <div class="row featurette">
+    <div class="col-md-7 order-md-2">
+      <h2 class="featurette-heading fw-normal lh-1">Tragamonedas. <span class="text-body-secondary">Prueba tu Suerte en el Azar.</span></h2>
+      <p class="lead">El juego de tragamonedas consta de 3 carretes llenos de diferentes símbolos. Gira los carretes y espera a que los símbolos se alineen de forma que obtengas tres símbolos idénticos para ganar fabulosos premios.</p>
+    </div>
+    <div class="col-md-5 order-md-1">
+      <img src="assets/images/home/featurette/tragamonedas.jpg" width="500" height="500">
+    </div>
+  </div>
+
+  <!-- /FIN DE LAS CARACTERÍSTICAS -->
+
+</div><!-- /.container -->

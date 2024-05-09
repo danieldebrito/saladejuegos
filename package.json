@@ -7,7 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:saladejuegos": "node dist/saladejuegos/server/server.mjs"
+    "serve:ssr:saladejuegos": "node dist/saladejuegos/server/server.mjs",
+    "deploy": "ng build && firebase deploy --only hosting"
   },
   "private": true,
   "dependencies": {
