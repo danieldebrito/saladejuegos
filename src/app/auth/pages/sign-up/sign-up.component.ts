@@ -14,7 +14,7 @@ export class SignUpComponent {
   //public error = false;
   public mostrarPass = false;
 
-  public role: ERole = ERole.paciente;
+  public role: ERole = ERole.publico;
 
   public userEmail: string = '';
   public userPwd: string = '';
@@ -39,7 +39,7 @@ export class SignUpComponent {
       Validators.minLength(2),
     ]),
     sexo: new FormControl('', [Validators.required, Validators.minLength(1)]),
-    dni: new FormControl('', [Validators.required, Validators.minLength(7)]),
+    //dni: new FormControl('', [Validators.required, Validators.minLength(7)]),
     edad: new FormControl('', [Validators.required, Validators.minLength(1)]),
     fechaNacimiento: new FormControl('', [
       Validators.required,
@@ -71,11 +71,11 @@ export class SignUpComponent {
         //dni: this.createForm.value.dni ?? '',
         edad: this.createForm.value.edad ?? '',
         fechaNacimiento: this.createForm.value.fechaNacimiento ?? '',
-        //role: this.role,
+        role: this.role,
       };
 
       this.authService.SignUp(newEspecialista);
-      // console.log(newEspecialista);
+      //console.log(newEspecialista);
       //this.usuariosService.addItem(newEspecialista);
     } else {
       console.log(

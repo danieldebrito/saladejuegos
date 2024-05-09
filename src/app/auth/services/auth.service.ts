@@ -106,7 +106,7 @@ provider in Firestore database using AngularFirestore + AngularFirestoreDocument
 
     userFormulario.uid = userFirebase.uid;
     userFormulario.email = userFirebase.email;
-    userFormulario.displayName = userFirebase.displayName;
+    // userFormulario.displayName = userFirebase.displayName;     // saco el displayName
     //userFormulario.photoURL = userFirebase.photoURL;
     userFormulario.emailVerified = userFirebase.emailVerified;
 

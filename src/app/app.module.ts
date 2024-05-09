@@ -14,9 +14,11 @@ import { getFunctions, provideFunctions } from '@angular/fire/functions';
 import { getStorage, provideStorage } from '@angular/fire/storage';
 import { LayoutModule } from './layout/layout.module';
 import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withFetch } from '@angular/common/http';
 
-import { AngularFireModule, FIREBASE_OPTIONS } from '@angular/fire/compat';
+import { AngularFireModule } from '@angular/fire/compat';
 import { AuthService } from './auth/services/auth.service';
+import { provideRouter } from '@angular/router';
 
 @NgModule({
   declarations: [AppComponent],
@@ -51,7 +53,7 @@ import { AuthService } from './auth/services/auth.service';
       measurementId: 'G-80C148SYBS',
     }),
   ],
-  providers: [provideClientHydration(), AuthService],
+  providers: [provideClientHydration(), AuthService, provideHttpClient(withFetch()), provideClientHydration()],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
