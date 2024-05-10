@@ -18,7 +18,6 @@ import { provideHttpClient, withFetch } from '@angular/common/http';
 
 import { AngularFireModule } from '@angular/fire/compat';
 import { AuthService } from './auth/services/auth.service';
-import { provideRouter } from '@angular/router';
 
 @NgModule({
   declarations: [AppComponent],
