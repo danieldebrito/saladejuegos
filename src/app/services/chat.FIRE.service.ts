@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { collection, collectionData, deleteDoc, doc, docData, Firestore, orderBy, query, setDoc, updateDoc } from '@angular/fire/firestore';
 import { catchError, map, Observable, throwError } from 'rxjs';
-import { Mensaje } from 'src/app/class/mensaje';
+import { Mensaje } from '../class/mensaje';
 
 @Injectable({
   providedIn: 'root'

@@ -7,7 +7,7 @@ import { Usuario } from '../auth/class/usuario';
 export class NombreApellidoPipe implements PipeTransform {
   transform(value: Usuario): string {
     if (value.nombre && value.apellido) {
-      const nombre = this.capitalizeFirstLetter(value.nombre);
+      const nombre = this.capitalizeWords(value.nombre);
       const apellido = this.capitalizeFirstLetter(value.apellido);
       return `${nombre} ${apellido}`;
     }
@@ -19,5 +19,12 @@ export class NombreApellidoPipe implements PipeTransform {
       return ''; // o puedes manejar esto según tus necesidades
     }
     return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+  }
+
+  private capitalizeWords(text: string): string {
+    if (!text) {
+      return '';
+    }
+    return text.replace(/\w\S*/g, word => word.charAt(0).toUpperCase() + word.slice(1));
   }
 }

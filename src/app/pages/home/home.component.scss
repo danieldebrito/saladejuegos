@@ -71,6 +71,10 @@
   z-index: 1500;
 }
 
+.head {
+  border-radius: 15px;
+}
+
 
 
 /* MARKETING CONTENT
@@ -103,6 +107,14 @@
 /* rtl:begin:remove */
 .featurette-heading {
   letter-spacing: -.05rem;
+}
+
+.featurette {
+  border-radius: 15px;
+}
+
+.card-img-top {
+  border-radius: 15px;
 }
 
 /* rtl:end:remove */
