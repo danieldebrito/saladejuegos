@@ -4,6 +4,9 @@ import { Mensaje } from '../../class/mensaje';
 import { User } from '../..//auth/models/user';
 import { AuthService } from '../../auth/services/auth.service';
 import { ChatService } from '../../services/chat.FIRE.service';
+import { UsuariosService } from '../../auth/services/usuarios.service';
+import { Usuario } from '../../auth/class/usuario';
+Usuario
 
 @Component({
   selector: 'app-chat',
@@ -12,12 +15,15 @@ import { ChatService } from '../../services/chat.FIRE.service';
 })
 export class ChatComponent {
 
+  public currentUser: Usuario = { };
+
   public userLogged: User = {};
   public messengers: Mensaje[] = [];
   public messenger: Mensaje = {};
 
   constructor(
     private afAuth: AngularFireAuth,
+    private usuariosSv: UsuariosService,
     private chatSv: ChatService,
     private authSv: AuthService) { }
 
@@ -27,18 +33,6 @@ export class ChatComponent {
     });
   }
 
-  private getCurretUser() {
-    this.afAuth.authState.subscribe(user => {
-      if (user) {
-        this.userLogged.uid = user.uid;
-        this.messenger.displayName = user.displayName ?? '';
-        console.log(user);
-
-      } else {
-        this.userLogged.uid = '';
-      }
-    });
-  }
   /////////////////////////////////////////////////////////////////////////////
   public getUserById(id: string){
     this.authSv.getUserByID(id).subscribe( res => {
@@ -48,14 +42,27 @@ export class ChatComponent {
   public saveMensaje(msg: string){
     this.messenger.fecha = new Date().getTime();
     this.messenger.mensaje = msg;
-    //this.messenger.displayName = '';//this.userLogged.displayName; // this.userLogged.displayName;
+    this.messenger.displayName = this.currentUser.displayName;//this.userLogged.displayName; // this.userLogged.displayName;
     this.messenger.uid = this.userLogged.uid;
 
     this.chatSv.addItem(this.messenger);
   }
 
+  private getCurrentUser() {
+    this.afAuth.authState.subscribe((user) => {
+      if (user) {
+        this.usuariosSv.getItemByUid(user.uid).subscribe((res) => {
+          this.currentUser = res;
+          this.userLogged.uid = user.uid;
+        });
+      } else {
+        this.currentUser = { email: '', password: '' };
+      }
+    });
+  }
+
   ngOnInit(): void {
-    this.getCurretUser();
+    this.getCurrentUser();
     this.getMessengers();
   }
 }

@@ -11,7 +11,7 @@ import { UsuariosService } from '../../auth/services/usuarios.service';
   styleUrl: './navbar.component.scss',
 })
 export class NavbarComponent {
-  public currentUser: Usuario = { email: '', password: '' };
+  public currentUser: Usuario = { };
   private unsubscribe$ = new Subject<void>();
 
   constructor(
