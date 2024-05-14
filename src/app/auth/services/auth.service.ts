@@ -14,6 +14,7 @@ import { ERole, Usuario } from '../class/usuario';
 import { UsuariosService } from './usuarios.service';
 import { clientesPHPservice } from '../../services/php/clientesPHP.service';
 import { Cliente } from '../../class/users/cliente';
+import Swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root',
@@ -72,7 +73,14 @@ export class AuthService {
         });
       })
       .catch((error) => {
-        //window.alert(error.message);
+
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "email o password incorrecto!",
+        });
+
+       console.log(error.message);
       });
   }
   // Sign up with email/password
@@ -94,6 +102,13 @@ export class AuthService {
       })
       .catch((error) => {
         window.alert(error.message);
+
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: error.message,
+        });
+
       });
   }
   /* Setting up user data when sign in with username/password,

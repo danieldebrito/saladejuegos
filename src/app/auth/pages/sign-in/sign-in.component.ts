@@ -43,6 +43,12 @@ export class SignInComponent {
   }
 
   AutoSignIn(){
-    this.authSvc.SignIn( { email: 'danielrdebrito@gmail.com', password: '123456'});
+    
+    this.loginForm.setValue({
+      email: 'danielrdebrito@gmail.com',
+      password: '123456'
+    });
+    
+    //this.authSvc.SignIn( { email: 'danielrdebrito@gmail.com', password: '123456'});
   }
 }

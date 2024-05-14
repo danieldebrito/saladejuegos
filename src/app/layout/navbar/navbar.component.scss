@@ -1,0 +1,31 @@
+.nav-link {
+    font-size: 18px;
+    color: #360F03 !important;
+}
+
+.nav-link:hover {
+    color: #C1EEFC !important;
+  }
+
+.navbar-collapse {
+    justify-content: center,
+}
+
+.navbar {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    font-weight: bold;
+}
+
+img {
+    width: 170px;
+}
+
+.avatar {
+    width: 25px;
+    height: 25px;
+    border-radius: 25px;
+}
