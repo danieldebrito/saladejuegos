@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { User } from '../../../auth/models/user';
-import { Naipe } from '../../../class/naipe';
-import { Score } from '../../../class/score';
-import { NaipesService } from '../../../services/naipesJSON.service';
-import { ScoresService } from '../../../services/scores.FIRE.service';
+import { User } from '../../../../auth/models/user';
+import { Naipe } from '../../../../class/naipe';
+import { Score } from '../../../../class/score';
+import { NaipesService } from '../../../../services/naipesJSON.service';
+import { ScoresService } from '../../../../services/scores.FIRE.service';
 
 @Component({
   selector: 'app-mayormenor',

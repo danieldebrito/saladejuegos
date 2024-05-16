@@ -10,11 +10,7 @@ const routes: Routes = [
   { path: 'sign-up', loadChildren: () => import('./auth/pages/sign-up/sign-up.module').then(m => m.SignUpModule) },
   // juegos ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   { path: 'scores', loadChildren: () => import('./pages/juegos/scores/scores.module').then(m => m.ScoresModule) },
-  { path: 'juegos/ahorcado', loadChildren: () => import('./pages/juegos/ahorcado/ahorcado.module').then(m => m.AhorcadoModule) },
-  { path: 'juegos/mayormenor', loadChildren: () => import('./pages/juegos/mayormenor/mayormenor.module').then(m => m.MayormenorModule) },
-  { path: 'juegos/preguntados', loadChildren: () => import('./pages/juegos/preguntados/preguntados.module').then(m => m.PreguntadosModule) },
-  { path: 'juegos/preguntadosdos', loadChildren: () => import('./pages/juegos/preguntadosdos/preguntadosdos.module').then(m => m.PreguntadosdosModule) },
-  { path: 'juegos/tragamonedas', loadChildren: () => import('./pages/juegos/tragamonedas/tragamonedas.module').then(m => m.TragamonedasModule) },
+  { path: 'juegos', loadChildren: () => import('./pages/juegos/juegos-main/juegos-main.module').then(m => m.JuegosMainModule) },
   // pages ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   { path: 'home', loadChildren: () => import('./pages/home/home.module').then((m) => m.HomeModule) },
   { path: 'chat', loadChildren: () => import('./pages/chat/chat.module').then(m => m.ChatModule) },
