@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './guard/auth.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -13,8 +14,9 @@ const routes: Routes = [
   { path: 'juegos', loadChildren: () => import('./pages/juegos/juegos-main/juegos-main.module').then(m => m.JuegosMainModule) },
   // pages ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   { path: 'home', loadChildren: () => import('./pages/home/home.module').then((m) => m.HomeModule) },
-  { path: 'chat', loadChildren: () => import('./pages/chat/chat.module').then(m => m.ChatModule) },
+  { path: 'chat', loadChildren: () => import('./pages/chat/chat.module').then(m => m.ChatModule), canActivate: [AuthGuard]},
   { path: 'about', loadChildren: () => import('./pages/about/about.module').then(m => m.AboutModule) },
+  { path: 'denegado', loadChildren: () => import('./pages/denegado/denegado.module').then(m => m.DenegadoModule) },
   { path: 'log', loadChildren: () => import('./pages/log-users/log-users.module').then(m => m.LogUsersModule) },
 ];
 

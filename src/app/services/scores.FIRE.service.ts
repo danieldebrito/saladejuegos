@@ -79,9 +79,9 @@ export class ScoresService {
     return observable;
   }
 
-  public update(id: string, Item: any) {
+  public update(Item: any) {
     const col = collection(this.firestore, 'scores');
-    const documento = doc(col, id);
+    const documento = doc(col, Item.id);
 
     updateDoc(documento, Item);
   }

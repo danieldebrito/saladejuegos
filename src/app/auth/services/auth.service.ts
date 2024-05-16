@@ -176,11 +176,15 @@ provider in Firestore database using AngularFirestore + AngularFirestoreDocument
   }
   // Returns true when user is looged in and email is verified
   get isLoggedIn(): boolean {
-    const user = JSON.parse(localStorage.getItem('user')!);
 
-    console.log(user);
-
-    return user !== null && user.emailVerified !== false ? true : false;
+    if (typeof window !== 'undefined' && window.localStorage) {
+      const user = JSON.parse(localStorage.getItem('user')!);
+      console.log(user);
+      return user !== null && user.emailVerified !== false ? true : false;
+    } else {
+      console.log('Handle the case where localStorage is not available');
+      return false;
+    }
   }
 
   // Sign out

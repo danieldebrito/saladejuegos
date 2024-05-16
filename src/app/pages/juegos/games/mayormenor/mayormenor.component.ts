@@ -10,14 +10,13 @@ import { UsuariosService } from '../../../../auth/services/usuarios.service';
 @Component({
   selector: 'app-mayormenor',
   templateUrl: './mayormenor.component.html',
-  styleUrls: ['./mayormenor.component.scss']
+  styleUrls: ['./mayormenor.component.scss'],
 })
 export class MayormenorComponent implements OnInit {
-  
-
   public score: Score = {};
   public scores: Score[] = [];
 
+  public myScore: Score = {};
   public currentUser: User = {};
 
   public naipes: Naipe[] = [];
@@ -30,7 +29,7 @@ export class MayormenorComponent implements OnInit {
     private afAuth: AngularFireAuth,
     private cnaipesSv: NaipesService,
     private scoresSv: ScoresService,
-    private usuariosSv: UsuariosService,
+    private usuariosSv: UsuariosService
   ) { }
 
   obtenerNaipeAleatorio() {
@@ -50,7 +49,6 @@ export class MayormenorComponent implements OnInit {
   }
 
   public checkJugada(jugada: string) {
-
     let resultado: string = '';
     this.cartaAleatoriaAnterior = this.cartaAleatoria;
 
@@ -58,32 +56,36 @@ export class MayormenorComponent implements OnInit {
       this.cartaAleatoria = this.naipes[this.indiceActual];
       this.indiceActual++;
 
-      if ((this.cartaAleatoriaAnterior.valor !== undefined && this.cartaAleatoria.valor !== undefined) && (this.cartaAleatoriaAnterior.valor > this.cartaAleatoria.valor)) {
-        resultado = 'menor'
+      if (
+        this.cartaAleatoriaAnterior.valor !== undefined &&
+        this.cartaAleatoria.valor !== undefined &&
+        this.cartaAleatoriaAnterior.valor > this.cartaAleatoria.valor
+      ) {
+        resultado = 'menor';
       } else {
-        resultado = 'mayor'
+        resultado = 'mayor';
       }
 
       if (jugada == resultado) {
-        this.mensaje = 'Bien!!';
-        this.score
+        this.mensaje = 'Bien ganaste 1 punto.';
+
+        this.myScore.mayorOMenor =
+          this.myScore.mayorOMenor != undefined
+            ? this.myScore.mayorOMenor + 1
+            : 0;
+        this.scoresSv.update(this.myScore);
+
+        this.score;
       } else {
-        this.mensaje = 'Perdiste!!';
+        this.mensaje = 'Perdiste, se descuenta 1 punto.';
+
+        this.myScore.mayorOMenor =
+          this.myScore.mayorOMenor != undefined
+            ? this.myScore.mayorOMenor - 1
+            : 0;
+        this.scoresSv.update(this.myScore);
       }
-
     }
-  }
-
-  public getScoreUsuario() {
-    
-    this.scoresSv.getItems().subscribe(res => {
-
-      console.log(this.score);
-
-      this.score = res.find(e => e.uid == this.currentUser.uid  ) ?? {};
-
-      console.log(this.score);
-    });
   }
 
   private getCurrentUser() {
@@ -91,9 +93,15 @@ export class MayormenorComponent implements OnInit {
       if (user) {
         this.usuariosSv.getItemByUid(user.uid).subscribe((res) => {
           this.currentUser = res;
+
+          this.scoresSv.getItems().subscribe((res) => {
+            this.myScore = res.find((r) => r.uid == this.currentUser.uid) ?? {};
+            this.mensaje = 'Hola ' + this.currentUser.displayName;
+            
+          });
         });
       } else {
-        this.currentUser = { };
+        this.currentUser = {};
       }
     });
   }
@@ -101,6 +109,5 @@ export class MayormenorComponent implements OnInit {
   ngOnInit() {
     this.obtenerTodosLosNaipesAleatorios();
     this.getCurrentUser();
-    this.getScoreUsuario();
   }
 }

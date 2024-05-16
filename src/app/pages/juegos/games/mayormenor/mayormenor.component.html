@@ -8,10 +8,27 @@
         </div>
         <div class="col-sm-4">
             <div class="mt-5 row">
-                <div class="mt-5 col-sm-12"><a class="myButton" (click)="checkJugada('mayor')" >MAYOR</a></div>
+                <div class="mt-5 col-sm-12"><a class="myButton" (click)="checkJugada('mayor')">MAYOR</a></div>
                 <div class="mt-5 col-sm-12"><a class="myButton" (click)="checkJugada('menor')">MENOR</a></div>
-                <h1>{{ mensaje }}</h1>
+
+                <div class="mt-3">
+                    <div class="card" style="width: 18rem;">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <p class="fs-4"> {{ mensaje }} </p>
+                            </li>
+                            <li class="list-group-item">
+                                <p class="fs-4">Jugando Mayor / Menor </p>
+                            </li>
+                        </ul>
+                        <div class="card-footer">
+                            Score Mayor / Menor: {{ myScore.mayorOMenor }}
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
+        
     </div>
 </div>

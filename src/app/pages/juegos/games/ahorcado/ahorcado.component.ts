@@ -27,14 +27,14 @@ export class AhorcadoComponent {
   public mostrarPalabra = false;
   public cantIntentos = 5;
   public esGanador = false;
-  public mensaje = 'Jugando ...';
+  public mensaje = 'Jugando Ahorcado';
 
   constructor(
     private afAuth: AngularFireAuth,
     private palabrasSv: PalabrasService,
     private scoresSv: ScoresService,
     private usuariosSv: UsuariosService) {
-    this.mensaje = 'Jugando ...';
+    this.mensaje = 'Jugando Ahorcado';
   }
 
   public getPalabra() {
@@ -59,6 +59,7 @@ export class AhorcadoComponent {
 
 
         this.myScore.ahorcado = this.myScore.ahorcado != undefined ? this.myScore.ahorcado + 1 : 0;
+        this.scoresSv.update(this.myScore);
 
       }
     }
@@ -84,6 +85,7 @@ export class AhorcadoComponent {
       this.esGanador = true;
       this.mensaje = "Ganaste 30 puntos!!";
       this.myScore.ahorcado = + 30;
+      this.scoresSv.update(this.myScore);
     }
   }
 
@@ -94,7 +96,7 @@ export class AhorcadoComponent {
     this.getPalabra();
     this.palabra = '';
     this.palabraArray = [];
-    this.mensaje = "Jugando ...";
+    this.mensaje = "Jugando Ahorcado";
 
     this.palabraTipeadaArray = [' - ', ' - ', ' - ', ' - ', ' - ', ' - '];
     this.letraTipeada = '';
@@ -121,7 +123,7 @@ export class AhorcadoComponent {
 
   ngOnInit(): void {
     this.getPalabra();
-    this.mensaje = 'Jugando ...';
+    this.mensaje = 'Jugando Ahorcado';
     this.getCurrentUser();
   }
 }
