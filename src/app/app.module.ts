@@ -55,4 +55,4 @@ import { AuthService } from './auth/services/auth.service';
   providers: [provideClientHydration(), AuthService, provideHttpClient(withFetch()), provideClientHydration()],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

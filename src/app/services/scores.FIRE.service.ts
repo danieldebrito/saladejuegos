@@ -10,28 +10,30 @@ import {
   query,
   setDoc,
   updateDoc,
+  where,
 } from '@angular/fire/firestore';
-import { catchError, map, Observable, throwError } from 'rxjs';
+import { catchError, from, map, Observable, of, switchMap, throwError } from 'rxjs';
 import { Score } from '../class/score';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ScoresService {
+
   constructor(private firestore: Firestore) {}
 
-  public addItem(item: Score) {
-    const col = collection(this.firestore, 'Scores');
+  public addItem(item: Score): Observable<void> {
+    const col = collection(this.firestore, 'scores');
     const newDoc = doc(col);
-
-    item.id = newDoc.id; // guardo el id del documento que crea firebase
+    item.id = newDoc.id;
     setDoc(newDoc, item);
+    return from(Promise.resolve());
   }
 
   public getItems(): Observable<Score[]> {
-    const col = collection(this.firestore, 'Scores');
-    const queryObservable = query(col, orderBy('uid')); // ordenar por fecha
-    const observable = collectionData(queryObservable).pipe(
+    const col = collection(this.firestore, 'scores');
+    //                 const queryObservable = query(col, orderBy('email')); // ORDENARRRR
+    const observable = collectionData(col).pipe(
       map((res) => {
         return res as Score[];
       }),
@@ -44,7 +46,7 @@ export class ScoresService {
   }
 
   public getItemById(id: string): Observable<Score> {
-    const col = collection(this.firestore, 'Scores');
+    const col = collection(this.firestore, 'scores');
     const documento = doc(col, id);
 
     const observable = docData(documento).pipe(
@@ -59,42 +61,66 @@ export class ScoresService {
     return observable;
   }
 
+  public getItemByUid(uid: string): Observable<Score> {
+    const col = collection(this.firestore, 'scores');
+    const queryRef = query(col, where('uid', '==', uid));
+
+    const observable = collectionData(queryRef).pipe(
+      map((res) => {
+        // Debería haber solo un resultado, por lo que se toma el primer elemento del array
+        const user = res[0];
+        return user as Score;
+      }),
+      catchError((err) => {
+        console.error('Error obteniendo el Score:', err);
+        return throwError(() => err);
+      })
+    );
+    return observable;
+  }
+
   public update(id: string, Item: any) {
-    const col = collection(this.firestore, 'Scores');
+    const col = collection(this.firestore, 'scores');
     const documento = doc(col, id);
 
     updateDoc(documento, Item);
   }
 
   public delete(id: string) {
-    const col = collection(this.firestore, 'Scores');
+    const col = collection(this.firestore, 'scores');
     const documento = doc(col, id);
 
     deleteDoc(documento);
   }
 
-  ////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////////////////////
 
-  public getScoreUsuario(): any {
-    /*
-    let scoreTEMP: Score = {};
-    //const user = JSON.parse(localStorage.getItem('user'));
-
-    this.getItems().subscribe( res => {
-
-      if(user){
-        scoreTEMP = res.find(e => e.uid == user.uid);
-        console.log(scoreTEMP);
-        if(scoreTEMP === undefined){
-          scoreTEMP = {};
-          scoreTEMP.uid = user.uid;
-          console.log('create');
-          this.addItem(scoreTEMP);
+  public getSetUserScore(uid: string): Observable<Score> {
+    return this.getItems().pipe(
+      switchMap(scores => {
+        const existingScore = scores.find(sc => sc.uid === uid);
+        if (existingScore) {
+          return of(existingScore); // Return existing score
+        } else {
+          // Create new score object with initial values
+          const newScore: Score = {
+            uid: uid,
+            // ... other score properties
+          };
+  
+          // Add new score to Firestore (assuming addItem returns an observable)
+          return this.addItem(newScore).pipe(
+            // No need for another switchMap here
+            map(() => newScore) // Return the new score object after adding
+          );
         }
-      }
-
-      return scoreTEMP;
-    });
-    */
+      }),
+      catchError(err => {
+        console.error('Error obtaining or creating score:', err);
+        return throwError(() => err);
+      })
+    );
   }
+  
+  
 }

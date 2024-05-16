@@ -1,40 +1,71 @@
 <div class="container">
     <div class="row">
-        <div class="row">
-            <div *ngIf="cantIntentos == 5" class="col-sm-6">
-                <img src="assets/juegos/ahorcado/1.jpg" alt="ahorcado_imagen_1" srcset="">
-            </div>
-            <div *ngIf="cantIntentos == 4" class="col-sm-6">
-                <img src="assets/juegos/ahorcado/2.jpg" alt="ahorcado_imagen_1" srcset="">
-            </div>
-            <div *ngIf="cantIntentos == 3" class="col-sm-6">
-                <img src="assets/juegos/ahorcado/3.jpg" alt="ahorcado_imagen_1" srcset="">
-            </div>
-            <div *ngIf="cantIntentos == 2" class="col-sm-6">
-                <img src="assets/juegos/ahorcado/4.jpg" alt="ahorcado_imagen_1" srcset="">
-            </div>
-            <div *ngIf="cantIntentos == 1" class="col-sm-6">
-                <img src="assets/juegos/ahorcado/5.jpg" alt="ahorcado_imagen_1" srcset="">
-            </div>
-            <div *ngIf="cantIntentos == 0" class="col-sm-6">
-                <img src="assets/juegos/ahorcado/6.jpg" alt="ahorcado_imagen_1" srcset="">
-            </div>
-            <div class="col-sm-6">
-                <div *ngIf="cantIntentos == 0" class="mt-5 col-sm-12">
-                    <h1>Perdiste!! la palabra era : {{ palabra }}</h1>
-                </div>
-                <div  *ngIf="cantIntentos != 0" class="mt-5 col-sm-12">
-                    <p class="fs-1">{{ palabraTipeada }}</p>
-                </div>
-                <div  *ngIf="esGanador" class="mt-5 col-sm-12">
-                    <p class="fs-1"> {{ mensaje }} </p>
+        <div *ngIf="cantIntentos == 5" class="col-sm-6">
+            <img src="assets/juegos/ahorcado/1.jpg" alt="ahorcado_imagen_1" srcset="">
+        </div>
+        <div *ngIf="cantIntentos == 4" class="col-sm-6">
+            <img src="assets/juegos/ahorcado/2.jpg" alt="ahorcado_imagen_1" srcset="">
+        </div>
+        <div *ngIf="cantIntentos == 3" class="col-sm-6">
+            <img src="assets/juegos/ahorcado/3.jpg" alt="ahorcado_imagen_1" srcset="">
+        </div>
+        <div *ngIf="cantIntentos == 2" class="col-sm-6">
+            <img src="assets/juegos/ahorcado/4.jpg" alt="ahorcado_imagen_1" srcset="">
+        </div>
+        <div *ngIf="cantIntentos == 1" class="col-sm-6">
+            <img src="assets/juegos/ahorcado/5.jpg" alt="ahorcado_imagen_1" srcset="">
+        </div>
+        <div *ngIf="cantIntentos == 0" class="col-sm-6">
+            <img src="assets/juegos/ahorcado/6.jpg" alt="ahorcado_imagen_1" srcset="">
+        </div>
+
+        <div class="col-sm-6">
+            <div class="card" style="width: 18rem;">
+                <ul class="list-group list-group-flush">
+
+                    <li class="list-group-item">
+                        <div *ngIf="cantIntentos == 0" class="mt-5 col-sm-12">
+                            <p class="fs-4">Perdiste!! la palabra era : {{ palabra }}</p>
+                        </div>
+                        <div *ngIf="cantIntentos != 0" class="mt-5 col-sm-12">
+                            <p class="fs-4">Palabra : </p>
+                            <p class="fs-4">{{ palabraTipeada }}</p>
+                        </div>
+                    </li>
+
+                    <li class="list-group-item">
+
+                        <div *ngIf="esGanador" class="mt-5 col-sm-12">
+                            <p class="fs-4"> {{ mensaje }} </p>
+                        </div>
+
+                        <div *ngIf="!esGanador" class="mt-5 col-sm-12">
+                            
+                            <div *ngIf="cantIntentos == 0" class="mt-5 col-sm-12">
+                                <p class="fs-4">No te Quedan Más Intentos</p>
+                            </div>
+
+                            <div *ngIf="cantIntentos != 0" class="mt-5 col-sm-12">
+                                <p class="fs-4"> {{ mensaje }} </p>
+                                <p class="fs-4"> Te Quedan {{ cantIntentos }} Intentos</p>
+                            </div>
+                        </div>
+
+                    </li>
+
+                    <li class="list-group-item">
+                        A third item
+                    </li>
+
+                </ul>
+                <div class="card-footer">
+                    Card footer
                 </div>
             </div>
         </div>
-        <div class="col-sm-12">
-            <h1> Te quedan {{ cantIntentos }} Intentos</h1>
-        </div>
-        <div class="teclado col-sm-9 mt-3 p-3">
+    </div>
+    <div class="row">
+        <div class="teclado col-sm-10 mt-3 p-3">
             <div class="row mt-1">
                 <div class="col"><a class="myButton" (click)="LetraTipeada('Q')">Q</a></div>
                 <div class="col"><a class="myButton" (click)="LetraTipeada('W')">W</a></div>

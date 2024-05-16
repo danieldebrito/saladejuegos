@@ -5,6 +5,7 @@ import { Naipe } from '../../../../class/naipe';
 import { Score } from '../../../../class/score';
 import { NaipesService } from '../../../../services/naipesJSON.service';
 import { ScoresService } from '../../../../services/scores.FIRE.service';
+import { UsuariosService } from '../../../../auth/services/usuarios.service';
 
 @Component({
   selector: 'app-mayormenor',
@@ -28,7 +29,9 @@ export class MayormenorComponent implements OnInit {
   constructor(
     private afAuth: AngularFireAuth,
     private cnaipesSv: NaipesService,
-    private scoresSv: ScoresService) { }
+    private scoresSv: ScoresService,
+    private usuariosSv: UsuariosService,
+  ) { }
 
   obtenerNaipeAleatorio() {
     if (this.naipes && this.indiceActual < this.naipes.length) {
@@ -71,26 +74,33 @@ export class MayormenorComponent implements OnInit {
     }
   }
 
-  public getScoreUsuario(uid: string) {
+  public getScoreUsuario() {
+    
     this.scoresSv.getItems().subscribe(res => {
+
+      console.log(this.score);
+
       this.score = res.find(e => e.uid == this.currentUser.uid  ) ?? {};
+
+      console.log(this.score);
     });
   }
 
-  private getCurretUser() {
-    /*
-    this.afAuth.authState.subscribe(user => {
+  private getCurrentUser() {
+    this.afAuth.authState.subscribe((user) => {
       if (user) {
-        this.currentUser = user;
+        this.usuariosSv.getItemByUid(user.uid).subscribe((res) => {
+          this.currentUser = res;
+        });
       } else {
-        this.currentUser = {};
+        this.currentUser = { };
       }
     });
-    */
   }
 
   ngOnInit() {
     this.obtenerTodosLosNaipesAleatorios();
-    this.getCurretUser();
+    this.getCurrentUser();
+    this.getScoreUsuario();
   }
 }

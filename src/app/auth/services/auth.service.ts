@@ -15,6 +15,10 @@ import { UsuariosService } from './usuarios.service';
 import { clientesPHPservice } from '../../services/php/clientesPHP.service';
 import { Cliente } from '../../class/users/cliente';
 import Swal from 'sweetalert2';
+import { ScoresService } from '../../services/scores.FIRE.service';
+import { Score } from '../../class/score';
+
+
 
 @Injectable({
   providedIn: 'root',
@@ -32,7 +36,9 @@ export class AuthService {
     public afsA: AngularFirestore, // Inject Firestore service
     public afAuth: AngularFireAuth, // Inject Firebase auth service
     public router: Router,
-    public ngZone: NgZone // NgZone service to remove outside scope warning
+    public ngZone: NgZone, // NgZone service to remove outside scope warning
+
+    private scoresSv: ScoresService  //  PARA CREAR UN SCORE CUANDO EL USUARIO SE REGISTRA
   ) {
     /* Saving user data in localstorage when
     logged in and setting up null when logged out */
@@ -93,6 +99,23 @@ export class AuthService {
         console.log(user);
         this.SetUserData(result.user, usuario);
         //this.usuariosService.addItem(usuario);
+
+
+
+        //  PARA CREAR UN SCORE CUANDO EL USUARIO SE REGISTRA  //////////////////////////////
+
+        const score: Score = {};
+
+        score.uid = user.uid;
+        score.ahorcado = 0;
+        score.mayorOMenor = 0;
+        score.preguntados2 = 0;
+        score.preguntados = 0;
+        score.saldo = 0;
+        score.tragamonedas = 0;
+        this.scoresSv.addItem(score);
+
+        //////////////////////////////////////////////////////////////////////////////////////
 
         /* Call the SendVerificaitonMail() function when new user sign
         up and returns promise */

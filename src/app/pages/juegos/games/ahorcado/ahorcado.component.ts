@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { PalabrasService } from '../../../../services/palabrasHTTP.service';
 import { Score } from '../../../../class/score';
+import { ScoresService } from '../../../../services/scores.FIRE.service';
+import { UsuariosService } from '../../../../auth/services/usuarios.service';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { User } from '../../../../auth/models/user';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-ahorcado',
@@ -12,20 +17,25 @@ export class AhorcadoComponent {
   public palabra: string = '';
   public palabraArray: string[] = [];
 
-  public palabraTipeada: string = '------';
-  public palabraTipeadaArray: string[] = ['-', '-', '-', '-', '-', '-'];
+  public myScore: any = {} ;
+  public currentUser: User = {};
+
+  public palabraTipeada: string = '- - - - - -';
+  public palabraTipeadaArray: string[] = [' - ', ' - ', ' - ', ' - ', ' - ', ' - '];
   public letraTipeada: string = '';
 
   public mostrarPalabra = false;
   public cantIntentos = 5;
   public esGanador = false;
-  public mensaje = 'Jugando';
+  public mensaje = 'Jugando ...';
 
-  public score: Score = {};
-
-  constructor(private palabrasSv: PalabrasService) {
-    this.mensaje = 'Jugando';
-   }
+  constructor(
+    private afAuth: AngularFireAuth,
+    private palabrasSv: PalabrasService,
+    private scoresSv: ScoresService,
+    private usuariosSv: UsuariosService) {
+    this.mensaje = 'Jugando ...';
+  }
 
   public getPalabra() {
     this.palabrasSv.get().subscribe(res => {
@@ -66,7 +76,7 @@ export class AhorcadoComponent {
   }
 
   public checkGanador(array: string[]) {
-    if (!array.find(ar => ar == '-')) {
+    if (!array.find(ar => ar == ' - ')) {
       this.esGanador = true;
       this.mensaje = "Ganaste!!";
     }
@@ -75,18 +85,32 @@ export class AhorcadoComponent {
   public ResetJuego() {
     this.cantIntentos = 5;
     this.mostrarPalabra = false;
-    this.palabraTipeada = '------';
+    this.palabraTipeada = '- - - - - -';
     this.getPalabra();
     this.palabra = '';
     this.palabraArray = [];
-    this.mensaje = "Jugando";
+    this.mensaje = "Jugando ...";
 
-    this.palabraTipeadaArray = ['-', '-', '-', '-', '-', '-'];
+    this.palabraTipeadaArray = [' - ', ' - ', ' - ', ' - ', ' - ', ' - '];
     this.letraTipeada = '';
+  }
+
+
+  private getCurrentUser() {
+    this.afAuth.authState.subscribe((user) => {
+      if (user) {
+        this.usuariosSv.getItemByUid(user.uid).subscribe((res) => {
+          this.currentUser = res;
+        });
+      } else {
+        this.currentUser = { };
+      }
+    });
   }
 
   ngOnInit(): void {
     this.getPalabra();
-    this.mensaje = 'Jugando';
+    this.mensaje = 'Jugando ...';
+    this.getCurrentUser();
   }
 }
