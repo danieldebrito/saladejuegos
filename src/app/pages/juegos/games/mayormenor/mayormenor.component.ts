@@ -83,6 +83,7 @@ export class MayormenorComponent implements OnInit {
           this.myScore.mayorOMenor != undefined
             ? this.myScore.mayorOMenor - 1
             : 0;
+            
         this.scoresSv.update(this.myScore);
       }
     }

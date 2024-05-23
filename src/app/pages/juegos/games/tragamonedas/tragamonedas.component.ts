@@ -55,14 +55,24 @@ export class TragamonedasComponent implements OnInit {
 
     for (let i = 1; i < arreglo.length; i++) {
       if (arreglo[i] !== arreglo[0]) {
-        this.mensaje = 'Perdiste restas 5 puntos!!';
-        this.myScore.tragamonedas =- 5;
+        this.mensaje = 'Perdiste restas 15 puntos!!';
+
+        this.myScore.tragamonedas =
+        this.myScore.tragamonedas != undefined
+          ? this.myScore.tragamonedas - 5
+          : 0;
+
         this.scoresSv.update(this.myScore);
         return false;
       }
     }
     this.mensaje = 'Ganaste 100 puntos!!';
-    this.myScore.tragamonedas =+ 100;
+
+           this.myScore.tragamonedas =
+          this.myScore.tragamonedas != undefined
+            ? this.myScore.tragamonedas + 100
+            : 0;
+
     this.scoresSv.update(this.myScore);
     return true;
   }
