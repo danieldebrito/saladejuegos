@@ -29,6 +29,8 @@ export class AhorcadoComponent {
   public esGanador = false;
   public mensaje = 'Jugando Ahorcado';
 
+  public jugando = true;
+
   constructor(
     private afAuth: AngularFireAuth,
     private palabrasSv: PalabrasService,
@@ -56,11 +58,7 @@ export class AhorcadoComponent {
       if (this.palabraArray[index].toLowerCase() == this.letraTipeada.toLowerCase()) {
         this.palabraTipeadaArray[index] = this.letraTipeada;
         flag = false;
-
-
         this.myScore.ahorcado = this.myScore.ahorcado != undefined ? this.myScore.ahorcado + 1 : 0;
-        this.scoresSv.update(this.myScore);
-
       }
     }
 
@@ -81,11 +79,13 @@ export class AhorcadoComponent {
   }
 
   public checkGanador(array: string[]) {
-    if (!array.find(ar => ar == ' - ')) {
+    if (!array.find(ar => ar == ' - ') && (this.cantIntentos != 0)) {
       this.esGanador = true;
       this.mensaje = "Ganaste 30 puntos!!";
       this.myScore.ahorcado = + 30;
       this.scoresSv.update(this.myScore);
+    } else if (this.cantIntentos == 0) {
+      this.jugando = false;
     }
   }
 
@@ -97,6 +97,7 @@ export class AhorcadoComponent {
     this.palabra = '';
     this.palabraArray = [];
     this.mensaje = "Jugando Ahorcado";
+    this.jugando = true;
 
     this.palabraTipeadaArray = [' - ', ' - ', ' - ', ' - ', ' - ', ' - '];
     this.letraTipeada = '';
@@ -107,13 +108,10 @@ export class AhorcadoComponent {
     this.afAuth.authState.subscribe((user) => {
       if (user) {
         this.usuariosSv.getItemByUid(user.uid).subscribe((res) => {
-
           this.currentUser = res;
-
           this.scoresSv.getItems().subscribe(res => {
             this.myScore = res.find(r => r.uid == this.currentUser.uid) ?? {};
           });
-
         });
       } else {
         this.currentUser = {};
