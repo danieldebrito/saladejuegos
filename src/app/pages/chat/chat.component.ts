@@ -15,6 +15,8 @@ import { Usuario } from '../../auth/class/usuario';
 export class ChatComponent implements AfterViewInit {
 
   @ViewChild('chatMessages') chatMessages!: ElementRef;
+  @ViewChild('mensage') messageInput!: ElementRef;
+
 
   public currentUser: Usuario = { };
 
@@ -48,7 +50,12 @@ export class ChatComponent implements AfterViewInit {
     this.chatSv.addItem(this.messenger).then(() => {
         const chatMessagesElement: HTMLElement = this.chatMessages.nativeElement;
         chatMessagesElement.scrollTop = chatMessagesElement.scrollHeight;
+
+            // Clear the input field after successful message submission
+      this.messageInput.nativeElement.value = ''; // Use the reference
     });
+
+    this.messenger = {};
   }
 
   private getCurrentUser() {
