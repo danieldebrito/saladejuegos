@@ -9,13 +9,13 @@ import { Mensaje } from '../class/mensaje';
 export class ChatService {
   constructor(private firestore: Firestore) { }
 
-  public addItem(item: Mensaje) {
+  addItem(mensaje: Mensaje): Promise<void> {
     const col = collection(this.firestore, 'mensajes');
     const newDoc = doc(col);
 
-    item.id = newDoc.id; // guardo el id del documento que crea firebase
-    setDoc(newDoc, item);
-  }
+    mensaje.id = newDoc.id; // Guardamos el ID del documento que crea Firebase
+    return setDoc(newDoc, mensaje);
+}
 
   public getItems(): Observable<Mensaje[]> {
     const col = collection(this.firestore, 'mensajes');
