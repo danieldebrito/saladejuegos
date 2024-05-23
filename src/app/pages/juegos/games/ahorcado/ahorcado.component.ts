@@ -82,8 +82,15 @@ export class AhorcadoComponent {
     if (!array.find(ar => ar == ' - ') && (this.cantIntentos != 0)) {
       this.esGanador = true;
       this.mensaje = "Ganaste 30 puntos!!";
-      this.myScore.ahorcado = + 30;
+
+      this.myScore.ahorcado =
+      this.myScore.ahorcado != undefined
+        ? this.myScore.ahorcado + 30
+        : 0;
+
+
       this.scoresSv.update(this.myScore);
+      this.jugando = false;
     } else if (this.cantIntentos == 0) {
       this.jugando = false;
     }
