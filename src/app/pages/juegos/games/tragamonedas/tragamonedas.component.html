@@ -1,5 +1,6 @@
 <div class="container">
-    <div class="row">
+  <div class="row">
+    <div class="col-sm-9">
       <div class="col-sm-12">
         <h2>Tragamonedas</h2>
         <div class="carretes">
@@ -15,8 +16,25 @@
         </div>
       </div>
       <div class="col-sm-12 mensaje">
-        {{ mensaje }}
+        hola {{ currentUser.displayName }}
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="mt-3">
+        <div class="card" style="width: 18rem;">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <p class="fs-4"> {{ mensaje }} </p>
+            </li>
+            <li class="list-group-item">
+              <p class="fs-4 simpson">Jugando Tragamonedas </p>
+            </li>
+          </ul>
+          <div class="card-footer">
+            Score : {{ myScore.tragamonedas }}
+          </div>
+        </div>
       </div>
     </div>
   </div>
-  
+</div>

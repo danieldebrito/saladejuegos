@@ -74,7 +74,6 @@ export class PreguntadosdosComponent implements OnInit {
     }
 
     this.scoresSv.update(this.myScore);
-    //this.cargarTerna();
   }
 
   private getCurrentUser() {
@@ -96,9 +95,9 @@ export class PreguntadosdosComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getCurrentUser();
     this.simpsonsSv.get().subscribe(res => {
       this.allItems = res.docs;
     });
-    this.getCurrentUser();
   }
 }

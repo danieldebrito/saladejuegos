@@ -1,11 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { UsuariosService } from '../../../../auth/services/usuarios.service';
+import { ScoresService } from '../../../../services/scores.FIRE.service';
+
+import { Score } from '../../../../class/score';
+import { User } from '../../../../auth/models/user';
+
 
 @Component({
   selector: 'app-tragamonedas',
   templateUrl: './tragamonedas.component.html',
   styleUrls: ['./tragamonedas.component.scss']
 })
-export class TragamonedasComponent {
+export class TragamonedasComponent implements OnInit {
 
   public carrete = ['🍒', '🍊', '🍇', '🔔', '⭐️', '💎'];
   public resultados = ['🍒', '🍒', '🍒'];
@@ -15,6 +22,15 @@ export class TragamonedasComponent {
   public tiempoVuelta = 500; // tiempo en milisegundos de la vuelta antes de mostrar el resultado
 
   public mensaje = 'Apreta el boton y suerte !!';
+
+  public myScore: Score = {};
+  public currentUser: User = {};
+
+  constructor(
+    private afAuth: AngularFireAuth,
+    private usuariosSv: UsuariosService,
+    private scoresSv: ScoresService,
+  ) { }
 
   tirar() {
     this.mensaje = 'Jugando ...';
@@ -28,7 +44,6 @@ export class TragamonedasComponent {
           this.chequearGanador(this.resultados);
           clearInterval(interval);
         }
-
       }, this.tiempoVuelta);
     }
   }
@@ -40,12 +55,36 @@ export class TragamonedasComponent {
 
     for (let i = 1; i < arreglo.length; i++) {
       if (arreglo[i] !== arreglo[0]) {
-        this.mensaje = 'Perdiste!!';
+        this.mensaje = 'Perdiste restas 5 puntos!!';
+        this.myScore.tragamonedas =- 5;
+        this.scoresSv.update(this.myScore);
         return false;
       }
     }
-    this.mensaje = 'Ganaste!!';
+    this.mensaje = 'Ganaste 100 puntos!!';
+    this.myScore.tragamonedas =+ 100;
+    this.scoresSv.update(this.myScore);
     return true;
+  }
+
+  private getCurrentUser() {
+    this.afAuth.authState.subscribe((user) => {
+      if (user) {
+        this.usuariosSv.getItemByUid(user.uid).subscribe((res) => {
+          this.currentUser = res;
+
+          this.scoresSv.getItems().subscribe((res) => {
+            this.myScore = res.find((r) => r.uid == this.currentUser.uid) ?? {};
+          });
+        });
+      } else {
+        this.currentUser = {};
+      }
+    });
+  }
+
+  ngOnInit() {
+    this.getCurrentUser();
   }
 }
 
